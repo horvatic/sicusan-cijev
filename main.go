@@ -1,10 +1,10 @@
 package main
 
 import (
-    "fmt"
     "net/http"
     "encoding/json"
     "sicusan-cijev/hooks"
+    "os/exec"
 )
 
 func main() {
@@ -17,8 +17,8 @@ func PipelineServer(w http.ResponseWriter, r *http.Request) {
 
     err := json.NewDecoder(r.Body).Decode(&g)
     if err != nil {
-	fmt.Println("Non push request made")
         return
     }
-    fmt.Println(g)
+    cmd := exec.Command("/bin/sh", "release.sh", g.Repository.URL, g.Repository.Name)
+    cmd.Run()
 }
