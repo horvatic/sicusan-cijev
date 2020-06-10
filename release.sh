@@ -1,11 +1,16 @@
 #!/bin/sh
 
-REPO_STORE=""
+SERVICE="$2-userprocess"
 
-git clone "$1" "$REPO_STORE/go/src/$2"
-cd "$REPO_STORE/go/src/$2"
+if [ -d "$HOME/go/src/$SERVICE" ]; then
+	rm -rf "$HOME/go/src/$SERVICE"
+	killall -9 "$SERVICE"
+fi
+
+git clone "$1" "$HOME/go/src/$SERVICE"
+cd "$HOME/go/src/$SERVICE"
 go build main.go
-mv main "$2"
-chmod +x "$2"
-./"$2" &
+mv main "$SERVICE"
+chmod +x "$SERVICE"
+./"$SERVICE" &
 
