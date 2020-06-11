@@ -19,6 +19,9 @@ func PipelineServer(w http.ResponseWriter, r *http.Request) {
     if err != nil {
         return
     }
+    if(g.Ref != "refs/heads/master") {
+	return
+    }
     cmd := exec.Command("/bin/sh", "release.sh", g.Repository.URL, g.Repository.Name)
     cmd.Run()
 }
