@@ -5,7 +5,6 @@ SERVICE="$2"
 
 if [ -d "$HOME/go/src/$SERVICE" ]; then
 	CURRENT_PID=$(cat "$HOME/go/src/$SERVICE/.pid.info")
-	echo "$CURRENT_PID" >> "$HOME/log.txt"
 	kill -9 "$CURRENT_PID"
 	rm -rf "$HOME/go/src/$SERVICE"
 fi
